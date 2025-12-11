@@ -124,43 +124,47 @@ High-level architecture:
 project layout
 
 ``` text
-.
-├── backend
-│   ├── app
-│   │   ├── api
-│   │   │   ├── routes_documents.py
-│   │   │   ├── routes_rag.py
-│   │   │   └── routes_eval.py
-│   │   ├── core
-│   │   │   ├── config.py
-│   │   │   └── logging.py
-│   │   ├── ingestion
-│   │   │   ├── loaders.py
-│   │   │   └── chunkers.py
-│   │   ├── rag
-│   │   │   ├── retriever.py
-│   │   │   ├── generator.py
-│   │   │   └── prompts.py
-│   │   ├── eval
-│   │   │   ├── datasets.py
-│   │   │   ├── judge.py
-│   │   │   └── metrics.py
-│   │   ├── models
-│   │   │   ├── db_models.py
-│   │   │   └── schemas.py
-│   │   └── main.py
-│   └── tests
-│       ├── test_rag.py
-│       ├── test_eval.py
-│       └── test_api.py
-├── frontend
-│   └── dashboard
-│       └── app.py   # e.g. Streamlit or React app
-├── configs
-│   ├── app.yaml
+evalrag
+├── core/
+│   ├── rag/
+│   │   ├── retriever.py
+│   │   ├── generator.py
+│   │   └── prompts.py
+│   ├── eval/
+│   │   ├── judge.py
+│   │   ├── datasets.py
+│   │   └── metrics.py
+│   ├── ingestion/
+│   │   ├── loaders.py
+│   │   └── chunkers.py
+│   ├── models/          ← pydantic schema
+│   ├── config/
+│   │   └── core_config.py
+│   └── __init__.py      ← (e.g. evalrag_core)
+│
+├── app/  
+│   ├── backend/
+│   │   ├── main.py      ← FastAPI entrypoint
+│   │   ├── api/
+│   │   │   ├── routes_rag.py     ← /api/ask
+│   │   │   ├── routes_docs.py    ← /api/documents
+│   │   │   └── routes_eval.py    ← /api/eval/*
+│   │   ├── db/ 
+│   │   ├── config.py
+│   │   └── dependencies.py
+│   ├── frontend/
+│   │   ├── dashboard/
+│   │   └── ...
+│   └── docker/
+│
+├── configs/
 │   ├── prompts.yaml
-│   └── eval.yaml
-├── docker-compose.yml
-├── requirements.txt
+│   ├── core.yaml
+│   └── app.yaml
+├── tests/
+│   ├── test_core_rag.py
+│   ├── test_core_eval.py
+│   └── test_api.py
 └── README.md
+|___ docker-compose.yml
 ```
