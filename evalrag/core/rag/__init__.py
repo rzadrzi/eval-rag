@@ -1,7 +1,7 @@
 # __init__.py
 #
 
-from rag.retriever import retriever
+from rag.retriever import Retriever
+from rag.prompts import build_context_block, build_rag_prompt
 
-
-__all__ = ["Retriever"]
+__all__ = ["Retriever", "build_context_block", "build_rag_prompt"]
