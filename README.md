@@ -165,6 +165,7 @@ evalrag
 │   ├── test_core_rag.py
 │   ├── test_core_eval.py
 │   └── test_api.py
+├── docker-compose.yml
 └── README.md
-|___ docker-compose.yml
+
 ```
