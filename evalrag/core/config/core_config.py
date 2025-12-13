@@ -1,11 +1,13 @@
 # core/config/core_config.py
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 import os
+from typing import Optional, Dict
 import yaml
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+BASE_DIR = Path(__file__).resolve().parents[3]
 CONFIG_FILE = BASE_DIR / "configs" / "core.yaml"
 
 
@@ -19,7 +21,7 @@ def _load_yaml_config() -> dict:
 _yaml_cfg = _load_yaml_config()
 
 
-def _get(path: str, default=None):
+def _get(path: str, default=None) -> Dict[str, int | str | None]:
     parts = path.split(".")
     cur = _yaml_cfg
     for p in parts:
@@ -61,9 +63,32 @@ class IngestionConfig:
 
 @dataclass
 class CoreSettings:
-    rag: RagConfig = RagConfig()
-    eval: EvalConfig = EvalConfig()
-    ingestion: IngestionConfig = IngestionConfig()
+    rag: RagConfig
+    eval: EvalConfig
+    ingestion: IngestionConfig
 
 
-settings = CoreSettings()
+def load_config() -> CoreSettings:
+    config = CoreSettings(
+        rag=RagConfig(), eval=EvalConfig(), ingestion=IngestionConfig()
+    )
+    return config
+
+
+settings = load_config()
+
+
+if __name__ == "__main__":
+    print(BASE_DIR)
+    print(CONFIG_FILE)
+    r = _get("rag.top_k", 8)
+    print(r)
+    print(type(r))
+    q = _get("rag.model_name")
+    print(type(q))
+
+    ne = RagConfig()
+    print(ne)
+    print(type(ne))
+
+    print(settings)
