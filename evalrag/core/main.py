@@ -1,3 +1,3 @@
-from config import config
+from evalrag import load_config
 
-print(config)
+print(load_config())
