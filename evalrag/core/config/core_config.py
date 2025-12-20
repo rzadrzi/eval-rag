@@ -1,15 +1,16 @@
 # core/config/core_config.py
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 import os
-from typing import Optional, Dict, Any
+from typing import Any
 import yaml
 
 
 BASE_DIR = Path(__file__).resolve().parents[3]
 CONFIG_FILE = BASE_DIR / "configs" / "core.yaml"
 DATA_DIR = BASE_DIR / "data"
+VECTOR_STORE = BASE_DIR / "evalrag" / "core"
 
 
 def _load_yaml_config() -> dict:
@@ -22,7 +23,7 @@ def _load_yaml_config() -> dict:
 _yaml_cfg = _load_yaml_config()
 
 
-def _get(path: str, default=None) -> Dict[str, Any]:
+def _get(path: str, default=None) -> Any:
     parts = path.split(".")
     cur = _yaml_cfg
     for p in parts:
@@ -61,6 +62,7 @@ class IngestionConfig:
     default_chunk_size: int = _get("ingestion.default_chunk_size", 800)
     default_chunk_overlap: int = _get("ingestion.default_chunk_overlap", 100)
     data_dir: str = str(DATA_DIR)
+    vector_store: str = str(VECTOR_STORE)
 
 
 @dataclass
@@ -77,20 +79,9 @@ def load_config() -> CoreSettings:
     return config
 
 
-settings = load_config()
-
-
 if __name__ == "__main__":
     print(BASE_DIR)
-    print(CONFIG_FILE)
     r = _get("rag.top_k", 8)
-    print(r)
     print(type(r))
-    q = _get("rag.model_name")
-    print(type(q))
 
-    ne = RagConfig()
-    print(ne)
-    print(type(ne))
-
-    print(settings)
+    print(VECTOR_STORE)
