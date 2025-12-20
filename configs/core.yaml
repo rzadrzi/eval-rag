@@ -1,8 +1,9 @@
 rag:
   top_k: 5
   max_context_tokens: 1800
-  model_name: "gpt-4.1-mini"
-  embedding_model: "text-embedding-3-large"
+  provider_name: "HF" # HF: HuggingFace, OPENAI: Openai
+  #model_name: "gpt-4.1-mini"
+  #embedding_model: "text-embedding-3-large"
 
 eval:
   judge_model: "gpt-4.1-mini"
