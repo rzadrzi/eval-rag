@@ -1,4 +1,6 @@
-from core import config
-# from evalrag import core
+from core.config.core_config import load_config
+from api import print_config
 
-print(config)
+# print(load_config())
+#
+print_config()
