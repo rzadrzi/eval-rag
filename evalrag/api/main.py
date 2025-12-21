@@ -7,8 +7,13 @@ app = FastAPI()
 
 
 @app.get("/")
-def read_root():
+def index():
     return {"Hello": "World"}
+
+
+@app.post("/")
+def query():
+    pass
 
 
 @app.get("/items/{item_id}")
