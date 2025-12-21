@@ -33,6 +33,23 @@ def document_encoding(path: str) -> str:
     return "utf-8"
 
 
+def remove_null_char(text: str) -> str:
+    return text.replace("\x00", "")
+
+
+def remove_ivalid_utf8_char(text: str) -> str:
+    try:
+        return text.encode("utf-8", "ignore").decode("utf-8")
+    except UnicodeError:
+        return text
+
+
+def clean_text(text: str) -> str:
+    text = remove_null_char(text)
+    text = remove_ivalid_utf8_char(text)
+    return text
+
+
 def pdf_loader(path) -> List[Document]:
     loader = PyPDFLoader(path)
     docs = loader.load()
