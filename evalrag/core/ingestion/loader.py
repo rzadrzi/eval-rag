@@ -50,6 +50,10 @@ def clean_text(text: str) -> str:
     return text
 
 
+def get_file_extention(filename: str) -> str:
+    return filename.split(".")[-1].lower()
+
+
 def pdf_loader(path) -> List[Document]:
     loader = PyPDFLoader(path)
     docs = loader.load()
