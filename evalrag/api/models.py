@@ -16,6 +16,7 @@ class DocumentModel(BaseModel):
         hash_obj = hashlib.md5(self.page_content.encode())
         return hash_obj.hexdigest()
 
+
 class QueryRequestBody(BaseModel):
     query: str
     file_id: str
