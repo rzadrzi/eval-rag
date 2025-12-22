@@ -46,8 +46,8 @@ It not only answers questions using your domain documents, but also **measures**
 
 ## Overview
 
-EvalRAG is designed for teams who want to move from *“We built a RAG demo”* to  
-*“We know how well our RAG system actually performs.”*
+EvalRAG is designed for teams who want to move from _“We built a RAG demo”_ to  
+_“We know how well our RAG system actually performs.”_
 
 Typical use cases:
 
@@ -115,17 +115,26 @@ High-level architecture:
             |                     |                  |
             v                     v                  v
    +----------------+    +----------------+   +--------------+
-   |  Vector Store  |    |  Relational DB |   | Object Store |
+   |  Vector Store  |    |  Relational DB  |  | Object Store |
    | (e.g. Qdrant)  |    |  (e.g. Postgres)|  |  (optional)  |
    +----------------+    +----------------+   +--------------+
 
 ```
 
+## Tech Stack
+
+- Languages:
+  - Python
+- Frameworks & Libraries:
+  - Langchain
+  - FAISS
+  - PyPDF
+
 ## Project Structure
 
 project layout
 
-``` text
+```text
 evalrag
 ├── core/
 │   ├── rag/
@@ -144,14 +153,14 @@ evalrag
 │   │   └── core_config.py
 │   └── __init__.py      ← (e.g. evalrag_core)
 │
-├── app/  
+├── app/
 │   ├── backend/
 │   │   ├── main.py      ← FastAPI entrypoint
 │   │   ├── api/
 │   │   │   ├── routes_rag.py     ← /api/ask
 │   │   │   ├── routes_docs.py    ← /api/documents
 │   │   │   └── routes_eval.py    ← /api/eval/*
-│   │   ├── db/ 
+│   │   ├── db/
 │   │   ├── config.py
 │   │   └── dependencies.py
 │   ├── frontend/
