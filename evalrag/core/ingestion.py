@@ -49,7 +49,7 @@ class Ingestion:
         self.config = config
 
 
-    def loader(self, path: str)->List[List[Document]]:
+    def loader(self, filename: str)->List[Document]:
         """
         Load documents from the given filesystem `path`.
 
@@ -58,29 +58,24 @@ class Ingestion:
         `PyPDFLoader`.
 
         Args:
-            path: Directory path containing files to load.
+            filename: Directory path containing files to load.
 
         Returns:
             A list where each element is a list of `Document` objects
             corresponding to a single source file.
         """
-        all_docs = []
-        all_files = os.listdir(path=path)
-        for filename in all_files:
-            ext = filename.split(".")[-1].lower()
-            if ext == "pdf":
-                pdf_loader = PyPDFLoader(filename)
-                docs = pdf_loader.load()
-                all_docs.append(docs)
+
+        pdf_loader = PyPDFLoader(filename)
+        docs = pdf_loader.load()
         
-        return all_docs
+        return docs
 
     def splitter(
             self, 
-            docs: List[List[Document]], 
+            docs: List[Document], 
             chunk_size: int = 100, 
             chunk_overlap: int = 10
-            )->List[List[Document]]:
+            )->List[Document]:
 
         """
         Split loaded documents into smaller chunks for embedding/indexing.
@@ -99,14 +94,14 @@ class Ingestion:
             objects derived from the corresponding input document list.
         """
 
-        all_splites = []
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size, chunk_overlap=chunk_overlap, add_start_index=True)
+            chunk_size=chunk_size, 
+            chunk_overlap=chunk_overlap, 
+            add_start_index=True
+            )
         
-        for doc in docs:
-            all_splites.append(text_splitter.split_documents(doc))
+        return text_splitter.split_documents(docs)
         
-        return all_splites
     
     def get_embedding_model(self, provider: str = "HF"):
         """
@@ -172,3 +167,16 @@ class Ingestion:
         and persist a vector index.
         """
         pass
+
+
+if __name__ == "__main__":
+    path = "./"
+    
+    all_docs = []
+
+    all_files = os.listdir(path)
+    
+    for filename in all_files:
+        ext = filename.split(".")[-1].lower()
+        if ext == "pdf":
+            all_docs.append(filename)
