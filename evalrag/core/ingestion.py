@@ -1,4 +1,4 @@
-# core/ingestion.py
+# evalrag/core/ingestion.py
 import os
 
 from typing import List
@@ -47,7 +47,6 @@ class Ingestion:
         other methods in this class.
         """
         self.config = config
-
 
     def loader(self, filename: str)->List[Document]:
         """
@@ -102,7 +101,6 @@ class Ingestion:
         
         return text_splitter.split_documents(docs)
         
-    
     def get_embedding_model(self, provider: str = "HF"):
         """
         Return an embeddings model instance for the requested provider.
@@ -156,7 +154,7 @@ class Ingestion:
         # store.save_local("../faiss_indexing")
         store.save_local(vector_store_path)
 
-    def indexing(self):
+    def indexing(self, filename: str):
         """
         High-level entry point for running the full ingestion + indexing
         pipeline.
@@ -166,17 +164,40 @@ class Ingestion:
         Implementations should call those helpers in sequence to create
         and persist a vector index.
         """
-        pass
+        docs = self.loader(filename=filename)
+        
+        all_splits = self.splitter(
+            docs=docs,
+            chunk_size=self.config.default_chunk_size,
+            chunk_overlap=self.config.default_chunk_overlap
+            )
+        
+        embeddings = self.get_embedding_model(provider=self.config.provider)
+        
+        self.vector_store(
+            embeddings=embeddings, 
+            splits=all_splits, 
+            vector_store_path=self.config.vector_store_path
+            )
 
 
 if __name__ == "__main__":
-    path = "./"
-    
-    all_docs = []
+    from core import load_core_config
+    config = load_core_config().ingestion
 
-    all_files = os.listdir(path)
+    ingestion = Ingestion(config=config)
+    ingestion.indexing(filename="./sample.pdf")
+
+
+
+
+    # path = "./"
     
-    for filename in all_files:
-        ext = filename.split(".")[-1].lower()
-        if ext == "pdf":
-            all_docs.append(filename)
+    # all_docs = []
+
+    # all_files = os.listdir(path)
+    
+    # for filename in all_files:
+    #     ext = filename.split(".")[-1].lower()
+    #     if ext == "pdf":
+    #         all_docs.append(filename)
