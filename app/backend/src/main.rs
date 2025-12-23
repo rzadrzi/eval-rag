@@ -1,16 +1,14 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 
-struct AppState{
-    app_name: String,
+// Response: POST user query and return answer
+// Response: GET EvalRAG 
+
+
+#[get("/eval")]
+async fn eval(){
 }
 
-#[get("/app")]
-async fn app_index(data: web::Data<AppState>)->String{
-    let app_name = &data.app_name;
-    format!("{app_name}")
-}
-
-#[get("/")]
+#[post("/")]
 async fn index() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
