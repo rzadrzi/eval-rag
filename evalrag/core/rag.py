@@ -5,8 +5,6 @@ from typing import List, Dict, Any
 from evalrag.core.config import get_prompt_template
 
 
-RAG_PROMPT_TEMPLATE = get_prompt_template()
-
 class RAG:
     """
     Unified RAG system for retrieval-augmented generation.
@@ -117,8 +115,10 @@ class RAG:
         Returns:
             A formatted prompt string ready to be sent to an LLM.
         """
+        RAG_PROMPT_TEMPLATE = get_prompt_template()
 
         context_block = self.build_context_block(contexts)
+
         return RAG_PROMPT_TEMPLATE.format(
             question=question,
             context_block=context_block,
