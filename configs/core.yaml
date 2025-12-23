@@ -1,5 +1,5 @@
 rag:
-  top_k: 5
+  top_k: 6
   max_context_tokens: 1800
   provider: "HF" # HF: HuggingFace, OPENAI: Openai
   # model_name: "gpt-4.1-mini"
