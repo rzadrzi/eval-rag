@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 CONFIG_FILE = BASE_DIR / "configs" / "core.yaml"
 PROMPTS_FILE = BASE_DIR / "configs" / "prompt.yaml"
 DATA_DIR = BASE_DIR / "data"
-VECTOR_STORE = BASE_DIR / "evalrag" / "core"
+VECTOR_STORE = BASE_DIR / "evalrag" / "vectorDB"
 
 
 def _load_yaml_config() -> dict:
