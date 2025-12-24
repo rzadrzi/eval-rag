@@ -180,3 +180,35 @@ evalrag
 └── README.md
 
 ```
+
+```text
+.
+├── app
+│   ├── backend
+│   │   ├── Cargo.lock
+│   │   ├── Cargo.toml
+│   │   ├── src
+│   │       └── main.rs
+│   └── frontend
+├── configs
+│   ├── core.yaml
+│   └── prompt.yaml
+├── data
+├── docker-compose.yml
+├── evalrag
+│   ├── api.py
+│   ├── core
+│   │   ├── config.py
+│   │   ├── eval.py
+│   │   ├── ingestion.py
+│   │   ├── __init__.py
+│   │   └── rag.py
+│   ├── Dockerfile
+│   ├── __init__.py
+│   ├── main.py
+│   └── requirements.txt
+└── README.md
+
+
+
+```
