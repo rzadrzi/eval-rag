@@ -2,7 +2,8 @@
 
 import time
 from typing import List, Dict, Any
-from evalrag.core.config import get_prompt_template
+from .config import load_prompt_config
+# from core import load_core_config
 
 
 class RAG:
@@ -115,7 +116,8 @@ class RAG:
         Returns:
             A formatted prompt string ready to be sent to an LLM.
         """
-        RAG_PROMPT_TEMPLATE = get_prompt_template()
+        RAG_PROMPT_TEMPLATE:str=load_prompt_config().prompt_template
+        # RAG_PROMPT_TEMPLATE = get_prompt_template()
 
         context_block = self.build_context_block(contexts)
 
