@@ -179,28 +179,11 @@ class Ingestion:
             splits=all_splits, 
             vector_store_path=self.config.vector_store_path
             )
+        
 
-
-if __name__ == "__main__":
-    from pathlib import Path
-
-    from .config import load_core_config
-    config = load_core_config().ingestion
-    print(config)
-    ingestion = Ingestion(config=config)
-    # path = Path
-    # ingestion.indexing(filename="./sample.pdf")
-
-
-
-
-    # path = "./"
-    
-    # all_docs = []
-
-    # all_files = os.listdir(path)
-    
-    # for filename in all_files:
-    #     ext = filename.split(".")[-1].lower()
-    #     if ext == "pdf":
-    #         all_docs.append(filename)
+    def indexing_all_dir(self, dir:str):
+        all_files = os.listdir(dir)
+        for filename in all_files:
+            ext = filename.split(".")[-1].lower()
+            if ext == "pdf":
+                self.indexing(filename=filename)
