@@ -107,3 +107,8 @@ for sampled_context in tqdm(random.sample(docs_processed, N_GENERATIONS)):
 
 
 # 1.3. Setup critique agents
+# We will build critique agents that will rate each question on several criteria, given in this paper:
+# https://huggingface.co/papers/2312.10003
+
+# - Groundedness: can the question be answered from the given context?
+# - Relevance: is the question relevant to users? For instance, "What is the date when transformers 4.29.1 was released?" is not relevant for ML practitioners.
