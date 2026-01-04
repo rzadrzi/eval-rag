@@ -3,21 +3,13 @@
 
 """
 Evaluation of RAG system has tow main parts:
-1. Component wise:
     1. Retrieval:
         1. Context Recall
         2. Context Percision
-    
+
     2. Generation:
         1. Faithfulness
         2. Answer Relevancy
-
-        
-2. End to End:
-    1. Answer Semantic Similarity
-    2. Answer Correctness
-
-    
 """
 
 """
